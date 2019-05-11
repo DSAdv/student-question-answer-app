@@ -106,3 +106,4 @@ venv.bak/
 
 
 db.sqlite
+migrations/
