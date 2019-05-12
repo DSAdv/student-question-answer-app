@@ -3,7 +3,6 @@ from datetime import datetime
 from functools import wraps
 
 import peewee
-import shelve
 from telebot import types
 
 import tg_bot.tg_config as config
@@ -21,6 +20,7 @@ def connect_to_db(func):
         return result
     return wrapper
 
+
 # Model
 class BaseModel(peewee.Model):
     class Meta:
@@ -35,7 +35,6 @@ class Group(BaseModel):
     group_type = peewee.CharField(default="bachelor")
 
     @staticmethod
-    @connect_to_db
     def update_data(**kwargs):
         try:
             with sqlite_db.atomic():
@@ -66,6 +65,7 @@ class TelegramUser(BaseModel):
                                    lazy_load=False,
                                    null=True,
                                    default=None)
+
     @staticmethod
     def update_data(msg: types.Message):
         user_data = {
@@ -109,9 +109,6 @@ models = [Group, TelegramUser]
 @connect_to_db
 def update_tables(models):
     sqlite_db.create_tables(models, safe=True)
-
-
-
 
 
 if __name__ == '__main__':
