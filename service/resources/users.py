@@ -9,6 +9,15 @@ api = Api(bp, prefix="/api/v1")
 tg_fields = ["id", "username", "first_name", "last_name", "is_bot", "language_code"]
 
 
+telegram_fields = {
+    "username": fields.String(),
+    "first_name": fields.String(),
+    "last_name": fields.String(),
+    "is_bot": fields.Boolean(default=False),
+    "language_code": fields.String(),
+}
+
+
 user_fields = {
     "id": fields.Integer(),
     "username": fields.String(),
